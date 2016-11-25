@@ -1,0 +1,2 @@
+c:\users\giacomo.aloisi\documents\visual studio 2015\Projects\KMeansInterface\KMeansInterface\bin\Debug\KMeansInterface.exe.config
+C:\Users\giacomo.aloisi\Desktop\KmeansCSharpInterface\KMeansInterface\bin\Debug\KMeansInterface.exe.config
