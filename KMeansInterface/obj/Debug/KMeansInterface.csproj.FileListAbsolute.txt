@@ -1,2 +1,17 @@
 c:\users\giacomo.aloisi\documents\visual studio 2015\Projects\KMeansInterface\KMeansInterface\bin\Debug\KMeansInterface.exe.config
 C:\Users\giacomo.aloisi\Desktop\KmeansCSharpInterface\KMeansInterface\bin\Debug\KMeansInterface.exe.config
+C:\Users\giacomo.aloisi\Desktop\KmeansCSharpInterface\KMeansInterface\bin\Debug\KMeansInterface.exe
+C:\Users\giacomo.aloisi\Desktop\KmeansCSharpInterface\KMeansInterface\bin\Debug\KMeansInterface.pdb
+C:\Users\giacomo.aloisi\Desktop\KmeansCSharpInterface\KMeansInterface\bin\Debug\KMeans.dll
+C:\Users\giacomo.aloisi\Desktop\KmeansCSharpInterface\KMeansInterface\bin\Debug\KMeans.pdb
+C:\Users\giacomo.aloisi\Desktop\KmeansCSharpInterface\KMeansInterface\obj\Debug\KMeansInterface.csprojResolveAssemblyReference.cache
+C:\Users\giacomo.aloisi\Desktop\KmeansCSharpInterface\KMeansInterface\obj\Debug\MainWindow.g.cs
+C:\Users\giacomo.aloisi\Desktop\KmeansCSharpInterface\KMeansInterface\obj\Debug\App.g.cs
+C:\Users\giacomo.aloisi\Desktop\KmeansCSharpInterface\KMeansInterface\obj\Debug\KMeansInterface_MarkupCompile.cache
+C:\Users\giacomo.aloisi\Desktop\KmeansCSharpInterface\KMeansInterface\obj\Debug\KMeansInterface_MarkupCompile.lref
+C:\Users\giacomo.aloisi\Desktop\KmeansCSharpInterface\KMeansInterface\obj\Debug\MainWindow.baml
+C:\Users\giacomo.aloisi\Desktop\KmeansCSharpInterface\KMeansInterface\obj\Debug\KMeansInterface.g.resources
+C:\Users\giacomo.aloisi\Desktop\KmeansCSharpInterface\KMeansInterface\obj\Debug\KMeansInterface.Properties.Resources.resources
+C:\Users\giacomo.aloisi\Desktop\KmeansCSharpInterface\KMeansInterface\obj\Debug\KMeansInterface.csproj.GenerateResource.Cache
+C:\Users\giacomo.aloisi\Desktop\KmeansCSharpInterface\KMeansInterface\obj\Debug\KMeansInterface.exe
+C:\Users\giacomo.aloisi\Desktop\KmeansCSharpInterface\KMeansInterface\obj\Debug\KMeansInterface.pdb
