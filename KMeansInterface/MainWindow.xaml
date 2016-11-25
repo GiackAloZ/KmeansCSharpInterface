@@ -5,18 +5,38 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:KMeansInterface"
         mc:Ignorable="d"
-        Title="KMeans" Height="1080" Width="1920" ResizeMode="NoResize">
+        Title="KMeans" Height="1080" Width="1920" FontSize="21.333" ResizeMode="CanResizeWithGrip" Loaded="winMain_Loaded">
     <Grid>
-        <GroupBox x:Name="grbCentroids" Header="Centroidi" HorizontalAlignment="Left" Height="386" Margin="56,110,0,0" VerticalAlignment="Top" Width="557">
+        <GroupBox x:Name="grbCentroids" Header="Centroidi" HorizontalAlignment="Left" Height="398" Margin="66,136,0,0" VerticalAlignment="Top" Width="557" FontSize="21.333">
             <Canvas x:Name="cnvCentroids" Height="367" Margin="0,0,-2,-3" VerticalAlignment="Top">
-                <DataGrid x:Name="dtgCentroids" HorizontalAlignment="Left" Height="347" VerticalAlignment="Top" Width="527" Canvas.Left="10" Canvas.Top="10"/>
+                <DataGrid x:Name="dtgCentroids" HorizontalAlignment="Left" Height="347" VerticalAlignment="Top" Width="527" Canvas.Left="10" Canvas.Top="10"
+                          AutoGenerateColumns="False" FontSize="14.667">
+                    <DataGrid.Columns>
+                        <DataGridTextColumn Header="Nome Centroide" Binding="{Binding Name}"/>
+                    </DataGrid.Columns>
+                </DataGrid>
             </Canvas>
         </GroupBox>
-        <GroupBox x:Name="grbPoints" Header="Punti" HorizontalAlignment="Left" Height="386" Margin="56,549,0,0" VerticalAlignment="Top" Width="557">
+        <GroupBox x:Name="grbPoints" Header="Punti" HorizontalAlignment="Left" Height="398" Margin="66,571,0,0" VerticalAlignment="Top" Width="557" FontSize="21.333">
             <Canvas x:Name="cmvPoints" Height="367" Margin="0,0,-2,-3" VerticalAlignment="Top">
-                <DataGrid x:Name="dtgPoints" HorizontalAlignment="Left" Height="347" VerticalAlignment="Top" Width="527" Canvas.Left="10" Canvas.Top="10"/>
+                <DataGrid x:Name="dtgPoints" HorizontalAlignment="Left" Height="347" VerticalAlignment="Top" Width="527" Canvas.Left="10" Canvas.Top="10"
+                          AutoGenerateColumns="False" FontSize="14.667">
+                    <DataGrid.Columns>
+                        <DataGridTextColumn Header="Nome Punto" Binding="{Binding Name}"/>
+                    </DataGrid.Columns>
+                </DataGrid>
             </Canvas>
         </GroupBox>
+        <GroupBox x:Name="grbGraphic" Header="Grafico" HorizontalAlignment="Left" Height="748" Margin="704,221,0,0" VerticalAlignment="Top" Width="1118">
+            <Canvas x:Name="cnvGraphic" HorizontalAlignment="Left" Height="700" Margin="4,14,-2,0" VerticalAlignment="Top" Width="1100"/>
+        </GroupBox>
+        <TextBox x:Name="txtCentroidN" HorizontalAlignment="Left" Height="52" Margin="300,35,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="344"/>
+        <Label x:Name="lblCentroidN" Content="Numero di centroidi" HorizontalAlignment="Left" Height="52" Margin="62,35,0,0" VerticalAlignment="Top" Width="214"/>
+        <Button x:Name="btnStart" Content="Start" HorizontalAlignment="Left" Height="52" Margin="678,35,0,0" VerticalAlignment="Top" Width="200" IsDefault="True"/>
+        <Label x:Name="lblFeature" Content="Nome feature" HorizontalAlignment="Left" Height="52" Margin="1034,35,0,0" VerticalAlignment="Top" Width="148"/>
+        <TextBox x:Name="txtFeature" HorizontalAlignment="Left" Height="52" Margin="1218,35,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="344"/>
+        <Button x:Name="btnAddFeature" Content="+" HorizontalAlignment="Left" Height="52" Margin="1596,35,0,0" VerticalAlignment="Top" Width="70" IsDefault="True" Click="btnAddFeature_Click"/>
+        <Button x:Name="btnRemoveFeature" Content="-" HorizontalAlignment="Left" Height="52" Margin="1692,35,0,0" VerticalAlignment="Top" Width="70" IsDefault="True" Click="btnRemoveFeature_Click"/>
 
     </Grid>
 </Window>
