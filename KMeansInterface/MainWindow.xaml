@@ -13,6 +13,8 @@
                           AutoGenerateColumns="False" FontSize="14.667">
                     <DataGrid.Columns>
                         <DataGridTextColumn Header="Nome Centroide" Binding="{Binding Name}"/>
+                        <DataGridTextColumn Header="X" Binding="{Binding Coordinates[0]}"/>
+                        <DataGridTextColumn Header="Y" Binding="{Binding Coordinates[1]}"/>
                     </DataGrid.Columns>
                 </DataGrid>
             </Canvas>
@@ -23,20 +25,22 @@
                           AutoGenerateColumns="False" FontSize="14.667">
                     <DataGrid.Columns>
                         <DataGridTextColumn Header="Nome Punto" Binding="{Binding Name}"/>
+                        <DataGridTextColumn Header="X" Binding="{Binding Coordinates[0]}"/>
+                        <DataGridTextColumn Header="Y" Binding="{Binding Coordinates[1]}"/>
                     </DataGrid.Columns>
                 </DataGrid>
             </Canvas>
         </GroupBox>
         <GroupBox x:Name="grbGraphic" Header="Grafico" HorizontalAlignment="Left" Height="748" Margin="704,221,0,0" VerticalAlignment="Top" Width="1118">
-            <Canvas x:Name="cnvGraphic" HorizontalAlignment="Left" Height="700" Margin="4,14,-2,0" VerticalAlignment="Top" Width="1100"/>
+            <Canvas x:Name="cnvGraphic" HorizontalAlignment="Left" Height="700" Margin="4,14,-2,0" VerticalAlignment="Top" Width="1100" MouseUp="cnvGraphic_MouseUp" Cursor="Arrow" Background="Transparent"/>
         </GroupBox>
         <TextBox x:Name="txtCentroidN" HorizontalAlignment="Left" Height="52" Margin="300,35,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="344"/>
         <Label x:Name="lblCentroidN" Content="Numero di centroidi" HorizontalAlignment="Left" Height="52" Margin="62,35,0,0" VerticalAlignment="Top" Width="214"/>
-        <Button x:Name="btnStart" Content="Start" HorizontalAlignment="Left" Height="52" Margin="678,35,0,0" VerticalAlignment="Top" Width="200" IsDefault="True"/>
+        <Button x:Name="btnStart" Content="Start" HorizontalAlignment="Left" Height="52" Margin="678,35,0,0" VerticalAlignment="Top" Width="200" IsDefault="True" Click="btnStart_Click"/>
         <Label x:Name="lblFeature" Content="Nome feature" HorizontalAlignment="Left" Height="52" Margin="1034,35,0,0" VerticalAlignment="Top" Width="148"/>
         <TextBox x:Name="txtFeature" HorizontalAlignment="Left" Height="52" Margin="1218,35,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="344"/>
-        <Button x:Name="btnAddFeature" Content="+" HorizontalAlignment="Left" Height="52" Margin="1596,35,0,0" VerticalAlignment="Top" Width="70" IsDefault="True" Click="btnAddFeature_Click"/>
-        <Button x:Name="btnRemoveFeature" Content="-" HorizontalAlignment="Left" Height="52" Margin="1692,35,0,0" VerticalAlignment="Top" Width="70" IsDefault="True" Click="btnRemoveFeature_Click"/>
+        <Button x:Name="btnAddFeature" Content="+" HorizontalAlignment="Left" Height="52" Margin="1596,35,0,0" VerticalAlignment="Top" Width="70" IsDefault="True" Click="btnAddFeature_Click" IsEnabled="False"/>
+        <Button x:Name="btnRemoveFeature" Content="-" HorizontalAlignment="Left" Height="52" Margin="1692,35,0,0" VerticalAlignment="Top" Width="70" IsDefault="True" Click="btnRemoveFeature_Click" IsEnabled="False"/>
 
     </Grid>
 </Window>
