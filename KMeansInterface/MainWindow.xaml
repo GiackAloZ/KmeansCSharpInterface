@@ -12,9 +12,9 @@
                 <DataGrid x:Name="dtgCentroids" HorizontalAlignment="Left" Height="347" VerticalAlignment="Top" Width="527" Canvas.Left="10" Canvas.Top="10"
                           AutoGenerateColumns="False" FontSize="14.667">
                     <DataGrid.Columns>
-                        <DataGridTextColumn Header="Nome Centroide" Binding="{Binding Name}"/>
-                        <DataGridTextColumn Header="X" Binding="{Binding Coordinates[0]}"/>
-                        <DataGridTextColumn Header="Y" Binding="{Binding Coordinates[1]}"/>
+                        <DataGridTextColumn Header="Nome Centroide" Binding="{Binding Name}" Width="33*"/>
+                        <DataGridTextColumn Header="X" Binding="{Binding Coordinates[0]}" Width="33*"/>
+                        <DataGridTextColumn Header="Y" Binding="{Binding Coordinates[1]}" Width="33*"/>
                     </DataGrid.Columns>
                 </DataGrid>
             </Canvas>
@@ -24,9 +24,9 @@
                 <DataGrid x:Name="dtgPoints" HorizontalAlignment="Left" Height="347" VerticalAlignment="Top" Width="527" Canvas.Left="10" Canvas.Top="10"
                           AutoGenerateColumns="False" FontSize="14.667">
                     <DataGrid.Columns>
-                        <DataGridTextColumn Header="Nome Punto" Binding="{Binding Name}"/>
-                        <DataGridTextColumn Header="X" Binding="{Binding Coordinates[0]}"/>
-                        <DataGridTextColumn Header="Y" Binding="{Binding Coordinates[1]}"/>
+                        <DataGridTextColumn Header="Nome Punto" Binding="{Binding Name}" Width="33*"/>
+                        <DataGridTextColumn Header="X" Binding="{Binding Coordinates[0]}" Width="33*"/>
+                        <DataGridTextColumn Header="Y" Binding="{Binding Coordinates[1]}" Width="33*"/>
                     </DataGrid.Columns>
                 </DataGrid>
             </Canvas>
@@ -41,6 +41,7 @@
         <TextBox x:Name="txtFeature" HorizontalAlignment="Left" Height="52" Margin="1218,35,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="344"/>
         <Button x:Name="btnAddFeature" Content="+" HorizontalAlignment="Left" Height="52" Margin="1596,35,0,0" VerticalAlignment="Top" Width="70" IsDefault="True" Click="btnAddFeature_Click" IsEnabled="False"/>
         <Button x:Name="btnRemoveFeature" Content="-" HorizontalAlignment="Left" Height="52" Margin="1692,35,0,0" VerticalAlignment="Top" Width="70" IsDefault="True" Click="btnRemoveFeature_Click" IsEnabled="False"/>
+        <Button x:Name="btnClearAll" Content="Clear All" HorizontalAlignment="Left" Height="53" Margin="1120,136,0,0" VerticalAlignment="Top" Width="190" Click="btnClearAll_Click"/>
 
     </Grid>
 </Window>
