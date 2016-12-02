@@ -100,9 +100,7 @@ namespace KMeansInterface
 
             _points.Add(new KMeans.Point {Name = "Point " + (++_pointsNumber) , Coordinates = new List<double> { x, y } });
 
-            SolidColorBrush dark = new SolidColorBrush();
-            dark.Color = Color.FromArgb(255, 0, 0, 0);
-            Ellipse ell = new Ellipse { Width = 10, Height = 10, Fill = dark, StrokeThickness = 2, Stroke = Brushes.Black };
+            Ellipse ell = new Ellipse { Width = _pointRadius, Height = _pointRadius, Fill = _pointFillColor, StrokeThickness = _pointThickness, Stroke = _pointStrokeColor };
             cnvGraphic.Children.Add(ell);
             Canvas.SetTop(ell, y-5);
             Canvas.SetLeft(ell, x-5);
@@ -113,6 +111,9 @@ namespace KMeansInterface
         private void btnStart_Click(object sender, RoutedEventArgs e)
         {
             int nc = int.Parse(txtCentroidN.Text); //va messo a posto
+
+            _timerSecondsDrawingLength = sldVel.Value;
+
             alg = new KMeansAlgorithm(nc);
             foreach (KMeans.Point p in _points)
                 alg.AddPoint(p);
@@ -188,5 +189,15 @@ namespace KMeansInterface
 			dtgPoints.ItemsSource = _points;
 			cnvGraphic.Children.Clear();
 		}
-	}
+
+        private void sldGC_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
+        {
+            _centroidRadius = sldGC.Value;
+        }
+
+        private void sldGP_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
+        {
+            _pointRadius = sldGP.Value;
+        }
+    }
 }
