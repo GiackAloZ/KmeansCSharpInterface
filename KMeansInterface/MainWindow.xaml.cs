@@ -95,8 +95,8 @@ namespace KMeansInterface
 
         private void cnvGraphic_MouseUp(object sender, MouseButtonEventArgs e)
         {
-            double x = e.GetPosition(e.Device.Target).X;
-            double y = e.GetPosition(e.Device.Target).Y;
+            double x = e.GetPosition((Canvas)sender).X;
+            double y = e.GetPosition((Canvas)sender).Y;
 
             _points.Add(new KMeans.Point {Name = "Point " + (++_pointsNumber) , Coordinates = new List<double> { x, y } });
 
@@ -113,6 +113,8 @@ namespace KMeansInterface
             int nc = int.Parse(txtCentroidN.Text); //va messo a posto
 
             _timerSecondsDrawingLength = sldVel.Value;
+            _pointRadius = sldGP.Value;
+            _centroidRadius = sldGC.Value;
 
             alg = new KMeansAlgorithm(nc);
             foreach (KMeans.Point p in _points)
@@ -183,6 +185,7 @@ namespace KMeansInterface
 
 		private void btnClearAll_Click(object sender, RoutedEventArgs e)
 		{
+            _dt.Stop();
 			_centroids = new List<Centroid>();
 			_points = new List<KMeans.Point>();
 			dtgCentroids.ItemsSource = _centroids;

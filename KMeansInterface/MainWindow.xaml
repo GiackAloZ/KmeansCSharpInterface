@@ -39,7 +39,7 @@
         <Button x:Name="btnStart" Content="Start" HorizontalAlignment="Left" Height="52" Margin="678,35,0,0" VerticalAlignment="Top" Width="200" IsDefault="True" Click="btnStart_Click"/>
         <Label x:Name="lblFeature" Content="Nome feature" HorizontalAlignment="Left" Height="52" Margin="1034,35,0,0" VerticalAlignment="Top" Width="148"/>
         <TextBox x:Name="txtFeature" HorizontalAlignment="Left" Height="52" Margin="1218,35,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="344"/>
-        <Button x:Name="btnAddFeature" Content="+" HorizontalAlignment="Left" Height="52" Margin="1596,35,0,0" VerticalAlignment="Top" Width="70" IsDefault="True" Click="btnAddFeature_Click" IsEnabled="False"/>
+        <Button x:Name="btnAddFeature" Content="+" HorizontalAlignment="Left" Height="52" Margin="1596,35,0,0" VerticalAlignment="Top" Width="70" Click="btnAddFeature_Click" IsDefault="True"/>
         <Button x:Name="btnRemoveFeature" Content="-" HorizontalAlignment="Left" Height="52" Margin="1692,35,0,0" VerticalAlignment="Top" Width="70" IsDefault="True" Click="btnRemoveFeature_Click" IsEnabled="False"/>
         <Button x:Name="btnClearAll" Content="Clear All" HorizontalAlignment="Left" Height="53" Margin="1692,112,0,0" VerticalAlignment="Top" Width="190" Click="btnClearAll_Click"/>
         <Label x:Name="label" Content="Velocità passaggio (sec)" HorizontalAlignment="Left" Height="40" Margin="685,183,0,0" VerticalAlignment="Top" Width="262"/>
