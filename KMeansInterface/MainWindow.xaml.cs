@@ -36,7 +36,7 @@ namespace KMeansInterface
 		private SolidColorBrush _pointFillColor = new SolidColorBrush(Color.FromArgb(255, 0, 0, 0));
 		private SolidColorBrush _centroidFillColor = new SolidColorBrush(Color.FromArgb(255, 255, 0, 0));
 		private SolidColorBrush _pointStrokeColor = new SolidColorBrush(Color.FromArgb(255, 0, 0, 0));
-		private SolidColorBrush _centroidStroleColor = new SolidColorBrush(Color.FromArgb(255, 255, 0, 0));
+		private SolidColorBrush _centroidStrokeColor = new SolidColorBrush(Color.FromArgb(255, 255, 0, 0));
 		private SolidColorBrush _lineStrokeColor = new SolidColorBrush(Color.FromArgb(255, 255, 0, 0));
 
 		private double _pointRadius = 10;
@@ -50,6 +50,7 @@ namespace KMeansInterface
 
 		private int _featuresNumber = 0;
         private int _pointsNumber = 0;
+        private int _centroidsNumber = 0;
         public MainWindow()
         {
             InitializeComponent();
@@ -95,17 +96,36 @@ namespace KMeansInterface
 
         private void cnvGraphic_MouseUp(object sender, MouseButtonEventArgs e)
         {
-            double x = e.GetPosition((Canvas)sender).X;
-            double y = e.GetPosition((Canvas)sender).Y;
+            if(e.ChangedButton == MouseButton.Left)
+            {
+                double x = e.GetPosition((Canvas)sender).X;
+                double y = e.GetPosition((Canvas)sender).Y;
 
-            _points.Add(new KMeans.Point {Name = "Point " + (++_pointsNumber) , Coordinates = new List<double> { x, y } });
+                _points.Add(new KMeans.Point { Name = "Point " + (++_pointsNumber), Coordinates = new List<double> { x, y } });
 
-            Ellipse ell = new Ellipse { Width = _pointRadius, Height = _pointRadius, Fill = _pointFillColor, StrokeThickness = _pointThickness, Stroke = _pointStrokeColor };
-            cnvGraphic.Children.Add(ell);
-            Canvas.SetTop(ell, y-5);
-            Canvas.SetLeft(ell, x-5);
+                Ellipse ell = new Ellipse { Width = _pointRadius, Height = _pointRadius, Fill = _pointFillColor, StrokeThickness = _pointThickness, Stroke = _pointStrokeColor };
+                cnvGraphic.Children.Add(ell);
+                Canvas.SetTop(ell, y - 5);
+                Canvas.SetLeft(ell, x - 5);
 
-            dtgPoints.Items.Refresh();
+                dtgPoints.Items.Refresh();
+            }
+            else if(e.ChangedButton == MouseButton.Right)
+            {
+                double x = e.GetPosition((Canvas)sender).X;
+                double y = e.GetPosition((Canvas)sender).Y;
+
+                _centroids.Add(new Centroid { Name = "Centroid " + (++_centroidsNumber), Coordinates = new List<double> { x, y } });
+
+                Ellipse ell = new Ellipse { Width = _centroidRadius, Height = _centroidRadius, Fill = _centroidFillColor, StrokeThickness = _centroidThickness, Stroke = _centroidStrokeColor };
+                cnvGraphic.Children.Add(ell);
+                Canvas.SetTop(ell, y - 5);
+                Canvas.SetLeft(ell, x - 5);
+
+                dtgCentroids.Items.Refresh();
+
+                txtCentroidN.Text = _centroidsNumber.ToString();
+            }
         }
 
         private void btnStart_Click(object sender, RoutedEventArgs e)
@@ -119,6 +139,8 @@ namespace KMeansInterface
             alg = new KMeansAlgorithm(nc);
             foreach (KMeans.Point p in _points)
                 alg.AddPoint(p);
+            foreach (Centroid c in _centroids)
+                alg.AddCentroid(c);
 
             alg.InitializeAlgorithm();
 
@@ -151,7 +173,7 @@ namespace KMeansInterface
                 }
 				foreach (Centroid c in _centroids)
 				{
-					Ellipse ell = new Ellipse { Width = _centroidRadius, Height = _centroidRadius, Fill = _centroidFillColor, StrokeThickness = _centroidThickness, Stroke = _centroidStroleColor };
+					Ellipse ell = new Ellipse { Width = _centroidRadius, Height = _centroidRadius, Fill = _centroidFillColor, StrokeThickness = _centroidThickness, Stroke = _centroidStrokeColor };
 					cnvGraphic.Children.Add(ell);
 					Canvas.SetTop(ell, c.Coordinates[1] - _centroidRadius / 2);
 					Canvas.SetLeft(ell, c.Coordinates[0] - _centroidRadius / 2);
@@ -188,6 +210,9 @@ namespace KMeansInterface
             _dt.Stop();
 			_centroids = new List<Centroid>();
 			_points = new List<KMeans.Point>();
+            _pointsNumber = 0;
+            _centroidsNumber = 0;
+            txtCentroidN.Text = _centroidsNumber.ToString();
 			dtgCentroids.ItemsSource = _centroids;
 			dtgPoints.ItemsSource = _points;
 			cnvGraphic.Children.Clear();
