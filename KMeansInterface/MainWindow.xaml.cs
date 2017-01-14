@@ -17,6 +17,7 @@ using System.Threading;
 
 using KMeans;
 using System.Windows.Threading;
+using System.Collections.ObjectModel;
 
 namespace KMeansInterface
 {
@@ -96,17 +97,24 @@ namespace KMeansInterface
 
         private void cnvGraphic_MouseUp(object sender, MouseButtonEventArgs e)
         {
-            if(e.ChangedButton == MouseButton.Left)
+            if (e.ChangedButton == MouseButton.Left)
             {
                 double x = e.GetPosition((Canvas)sender).X;
                 double y = e.GetPosition((Canvas)sender).Y;
 
-                _points.Add(new KMeans.Point { Name = "Point " + (++_pointsNumber), Coordinates = new List<double> { x, y } });
+                _points.Add(new KMeans.Point { Name = "Point " + (++_pointsNumber), Coordinates = new ObservableCollection<double> { x, y } });
 
                 Ellipse ell = new Ellipse { Width = _pointRadius, Height = _pointRadius, Fill = _pointFillColor, StrokeThickness = _pointThickness, Stroke = _pointStrokeColor };
                 cnvGraphic.Children.Add(ell);
                 Canvas.SetTop(ell, y - 5);
                 Canvas.SetLeft(ell, x - 5);
+
+                _points[_pointsNumber - 1].Coordinates.CollectionChanged += (s, args) =>
+                {
+                    ObservableCollection<double> d = (ObservableCollection<double>)s;
+                    Canvas.SetTop(ell, d[1] - 5);
+                    Canvas.SetLeft(ell, d[0] - 5);
+                };
 
                 dtgPoints.Items.Refresh();
             }
@@ -115,12 +123,19 @@ namespace KMeansInterface
                 double x = e.GetPosition((Canvas)sender).X;
                 double y = e.GetPosition((Canvas)sender).Y;
 
-                _centroids.Add(new Centroid { Name = "Centroid " + (++_centroidsNumber), Coordinates = new List<double> { x, y } });
+                _centroids.Add(new Centroid { Name = "Centroid " + (++_centroidsNumber), Coordinates = new ObservableCollection<double> { x, y } });
 
                 Ellipse ell = new Ellipse { Width = _centroidRadius, Height = _centroidRadius, Fill = _centroidFillColor, StrokeThickness = _centroidThickness, Stroke = _centroidStrokeColor };
                 cnvGraphic.Children.Add(ell);
                 Canvas.SetTop(ell, y - 5);
                 Canvas.SetLeft(ell, x - 5);
+
+                _centroids[_centroidsNumber - 1].Coordinates.CollectionChanged += (s, args) =>
+                {
+                    ObservableCollection<double> d = (ObservableCollection<double>)s;
+                    Canvas.SetTop(ell, d[1] - 5);
+                    Canvas.SetLeft(ell, d[0] - 5);
+                };
 
                 dtgCentroids.Items.Refresh();
 
@@ -207,7 +222,8 @@ namespace KMeansInterface
 
 		private void btnClearAll_Click(object sender, RoutedEventArgs e)
 		{
-            _dt.Stop();
+            if(_dt?.IsEnabled == true)
+                _dt.Stop();
 			_centroids = new List<Centroid>();
 			_points = new List<KMeans.Point>();
             _pointsNumber = 0;
