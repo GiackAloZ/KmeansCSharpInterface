@@ -45,18 +45,21 @@
         <Label x:Name="label" Content="Velocità passaggio (sec)" HorizontalAlignment="Left" Height="40" Margin="685,183,0,0" VerticalAlignment="Top" Width="262"/>
         <Label x:Name="label_Copy" Content="Grandezza centroidi" HorizontalAlignment="Left" Height="40" Margin="685,229,0,0" VerticalAlignment="Top" Width="262"/>
         <Label x:Name="label_Copy2" Content="Grandezza punti" HorizontalAlignment="Left" Height="40" Margin="685,273,0,0" VerticalAlignment="Top" Width="262"/>
-        <Label x:Name="label_Copy1" Content="Differenzia i vari centroidi" HorizontalAlignment="Left" Height="40" Margin="685,319,0,0" VerticalAlignment="Top" Width="262" IsEnabled="False"/>
+        <Label x:Name="label_Copy1" Content="Differenzia i vari centroidi" HorizontalAlignment="Left" Height="40" Margin="685,319,0,0" VerticalAlignment="Top" Width="262"/>
         <Slider x:Name="sldVel" HorizontalAlignment="Left" Height="40" Margin="987,185,0,0" VerticalAlignment="Top" Width="244" Maximum="5" Minimum="0.1" Value="1"/>
         <Slider x:Name="sldGC" HorizontalAlignment="Left" Height="40" Margin="987,229,0,0" VerticalAlignment="Top" Width="244" Minimum="2" Maximum="20" Value="8" ValueChanged="sldGC_ValueChanged"/>
         <Slider x:Name="sldGP" HorizontalAlignment="Left" Height="40" Margin="987,273,0,0" VerticalAlignment="Top" Width="244" Minimum="2" Maximum="20" Value="10" ValueChanged="sldGP_ValueChanged"/>
         <Label x:Name="label_Copy3" Content="{Binding ElementName=sldVel, Path=Value}" ContentStringFormat="F2" HorizontalAlignment="Left" Height="40" Margin="1249,183,0,0" VerticalAlignment="Top" Width="112"/>
         <Label x:Name="label_Copy4" Content="{Binding ElementName=sldGC, Path=Value}" ContentStringFormat="F2" HorizontalAlignment="Left" Height="40" Margin="1249,229,0,0" VerticalAlignment="Top" Width="112"/>
         <Label x:Name="label_Copy5" Content="{Binding ElementName=sldGP, Path=Value}" ContentStringFormat="F2" HorizontalAlignment="Left" Height="40" Margin="1249,273,0,0" VerticalAlignment="Top" Width="112"/>
-        <CheckBox x:Name="chbDiff" Content="" HorizontalAlignment="Left" Height="14" Margin="990,326,0,0" VerticalAlignment="Top" Width="16" IsEnabled="False">
+        <CheckBox x:Name="chbDiff" Content="" HorizontalAlignment="Left" Height="14" Margin="990,326,0,0" VerticalAlignment="Top" Width="16">
             <CheckBox.LayoutTransform>
                 <ScaleTransform ScaleX="2" ScaleY="2" />
             </CheckBox.LayoutTransform>
         </CheckBox>
+        <Button x:Name="btnChangeMode" Content="Change&#xD;&#xA;Mode" HorizontalAlignment="Left" Height="68" Margin="1614,339,0,0" VerticalAlignment="Top" Width="170" Click="btnChangeMode_Click"/>
+        <Label x:Name="label1" Content="Current mode :" HorizontalAlignment="Left" Height="53" Margin="1415,260,0,0" VerticalAlignment="Top" Width="174"/>
+        <Label x:Name="lblMode" Content="Kmeans mode" HorizontalAlignment="Left" Height="53" Margin="1614,260,0,0" VerticalAlignment="Top" Width="186"/>
 
     </Grid>
 </Window>
