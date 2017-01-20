@@ -37,15 +37,15 @@
         <TextBox x:Name="txtCentroidN" HorizontalAlignment="Left" Height="52" Margin="300,35,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="344"/>
         <Label x:Name="lblCentroidN" Content="Numero di centroidi" HorizontalAlignment="Left" Height="52" Margin="62,35,0,0" VerticalAlignment="Top" Width="214"/>
         <Button x:Name="btnStart" Content="Start" HorizontalAlignment="Left" Height="52" Margin="678,35,0,0" VerticalAlignment="Top" Width="200" IsDefault="True" Click="btnStart_Click"/>
-        <Label x:Name="lblFeature" Content="Nome feature" HorizontalAlignment="Left" Height="52" Margin="1034,35,0,0" VerticalAlignment="Top" Width="148"/>
-        <TextBox x:Name="txtFeature" HorizontalAlignment="Left" Height="52" Margin="1218,35,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="344"/>
+        <Label x:Name="lblFeature" Content="Nome feature" HorizontalAlignment="Left" Height="52" Margin="1034,35,0,0" VerticalAlignment="Top" Width="148" IsEnabled="False"/>
+        <TextBox x:Name="txtFeature" HorizontalAlignment="Left" Height="52" Margin="1218,35,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="344" IsEnabled="False"/>
         <Button x:Name="btnAddFeature" Content="+" HorizontalAlignment="Left" Height="52" Margin="1596,35,0,0" VerticalAlignment="Top" Width="70" Click="btnAddFeature_Click" IsDefault="True" IsEnabled="False"/>
         <Button x:Name="btnRemoveFeature" Content="-" HorizontalAlignment="Left" Height="52" Margin="1692,35,0,0" VerticalAlignment="Top" Width="70" IsDefault="True" Click="btnRemoveFeature_Click" IsEnabled="False"/>
         <Button x:Name="btnClearAll" Content="Clear All" HorizontalAlignment="Left" Height="53" Margin="1692,112,0,0" VerticalAlignment="Top" Width="190" Click="btnClearAll_Click"/>
         <Label x:Name="label" Content="Velocità passaggio (sec)" HorizontalAlignment="Left" Height="40" Margin="685,183,0,0" VerticalAlignment="Top" Width="262"/>
         <Label x:Name="label_Copy" Content="Grandezza centroidi" HorizontalAlignment="Left" Height="40" Margin="685,229,0,0" VerticalAlignment="Top" Width="262"/>
         <Label x:Name="label_Copy2" Content="Grandezza punti" HorizontalAlignment="Left" Height="40" Margin="685,273,0,0" VerticalAlignment="Top" Width="262"/>
-        <Label x:Name="label_Copy1" Content="Differenzia i vari centroidi" HorizontalAlignment="Left" Height="40" Margin="685,319,0,0" VerticalAlignment="Top" Width="262"/>
+        <Label x:Name="label_Copy1" Content="Differenzia colori centroidi" HorizontalAlignment="Left" Height="40" Margin="685,319,0,0" VerticalAlignment="Top" Width="262"/>
         <Slider x:Name="sldVel" HorizontalAlignment="Left" Height="40" Margin="987,185,0,0" VerticalAlignment="Top" Width="244" Maximum="5" Minimum="0.1" Value="1"/>
         <Slider x:Name="sldGC" HorizontalAlignment="Left" Height="40" Margin="987,229,0,0" VerticalAlignment="Top" Width="244" Minimum="2" Maximum="20" Value="8" ValueChanged="sldGC_ValueChanged"/>
         <Slider x:Name="sldGP" HorizontalAlignment="Left" Height="40" Margin="987,273,0,0" VerticalAlignment="Top" Width="244" Minimum="2" Maximum="20" Value="10" ValueChanged="sldGP_ValueChanged"/>
@@ -57,9 +57,10 @@
                 <ScaleTransform ScaleX="2" ScaleY="2" />
             </CheckBox.LayoutTransform>
         </CheckBox>
-        <Button x:Name="btnChangeMode" Content="Change&#xD;&#xA;Mode" HorizontalAlignment="Left" Height="68" Margin="1614,339,0,0" VerticalAlignment="Top" Width="170" Click="btnChangeMode_Click"/>
-        <Label x:Name="label1" Content="Current mode :" HorizontalAlignment="Left" Height="53" Margin="1415,260,0,0" VerticalAlignment="Top" Width="174"/>
-        <Label x:Name="lblMode" Content="Kmeans mode" HorizontalAlignment="Left" Height="53" Margin="1614,260,0,0" VerticalAlignment="Top" Width="186"/>
+        <Button x:Name="btnChangeMode" Content="Change&#xD;&#xA;Mode" HorizontalAlignment="Left" Height="68" Margin="1696,280,0,0" VerticalAlignment="Top" Width="170" Click="btnChangeMode_Click"/>
+        <Label x:Name="label1" Content="Current mode :" HorizontalAlignment="Left" Height="53" Margin="1497,201,0,0" VerticalAlignment="Top" Width="174"/>
+        <Label x:Name="lblMode" Content="Kmeans mode" HorizontalAlignment="Left" Height="53" Margin="1696,201,0,0" VerticalAlignment="Top" Width="186"/>
+        <Button x:Name="btnHelp" Content="?" HorizontalAlignment="Left" Height="36" Margin="1858,10,0,0" VerticalAlignment="Top" Width="44" Click="btnHelp_Click"/>
 
     </Grid>
 </Window>

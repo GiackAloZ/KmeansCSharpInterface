@@ -18,6 +18,7 @@ using System.Threading;
 using KMeans;
 using System.Windows.Threading;
 using System.Collections.ObjectModel;
+using KMeans.Exceptions;
 
 namespace KMeansInterface
 {
@@ -62,6 +63,7 @@ namespace KMeansInterface
 
         private bool _calculatedAndSet = false;
         private List<SolidColorBrush> _pointsColorList;
+        private int _evaluatedCounter = 0;
 
         public MainWindow()
         {
@@ -114,7 +116,8 @@ namespace KMeansInterface
                 double y = e.GetPosition((Canvas)sender).Y;
                 if (_calculatedAndSet)
                 {
-                    Centroid ddd = _knnAlg.GetPointFeature(new KMeans.Point(new ObservableCollection<double> { x, y }));
+                    KMeans.Point p = new KMeans.Point("Evaluated point " + (++_evaluatedCounter), new ObservableCollection<double> { x, y });
+                    Centroid ddd = _knnAlg.GetPointFeature(p);
                     int ccc = 0;
                     foreach(Centroid c in _centroids)
                     {
@@ -124,9 +127,12 @@ namespace KMeansInterface
                             cnvGraphic.Children.Add(ell);
                             Canvas.SetTop(ell, y - 5);
                             Canvas.SetLeft(ell, x - 5);
+                            c.MyPoints.Add(p);
                         }
                         ccc++;
                     }
+                    
+                    
                 }
                 else
                 {
@@ -177,50 +183,64 @@ namespace KMeansInterface
 
         private void btnStart_Click(object sender, RoutedEventArgs e)
         {
-            if(_mode == 0)
+            int nc;
+            bool ok = int.TryParse(txtCentroidN.Text, out nc); //va messo a posto
+            if (!ok)
             {
-                int nc = int.Parse(txtCentroidN.Text); //va messo a posto
-
-                _differciateCentroids = (bool)chbDiff.IsChecked;
-
-                _timerSecondsDrawingLength = sldVel.Value;
-                _pointRadius = sldGP.Value;
-                _centroidRadius = sldGC.Value;
-
-                _alg = new KMeansAlgorithm(nc);
-                foreach (KMeans.Point p in _points)
-                    _alg.AddPoint(p);
-                foreach (Centroid c in _centroids)
-                    _alg.AddCentroid(c);
-
-                if (_differciateCentroids)
-                    GenerateRandomCentroidsColor(nc);
-
-                _alg.InitializeAlgorithm();
-
-                _dt = new DispatcherTimer();
-                _dt.Interval = TimeSpan.FromSeconds(_timerSecondsDrawingLength);
-                _dt.Tick += Dt_Tick;
-                _dt.Start();
+                MessageBox.Show("Inserire un numero intero!", "Errore", MessageBoxButton.OK, MessageBoxImage.Error);
+                return;
             }
-            else if(_mode == 1)
+            try
             {
-                int nc = int.Parse(txtCentroidN.Text); //va messo a posto
 
-                _alg = new KMeansAlgorithm(nc);
-                foreach (KMeans.Point p in _points)
-                    _alg.AddPoint(p);
-                foreach (Centroid c in _centroids)
-                    _alg.AddCentroid(c);
+                if (_mode == 0)
+                {
+                    _differciateCentroids = (bool)chbDiff.IsChecked;
 
-                _centroids = _alg.CalculateResult();
-                UpdateDataGrids();
-                cnvGraphic.Children.Clear();
-                _pointsColorList = ColorCalculatedPoints();
-                _calculatedAndSet = true;
-                _knnAlg = new KNNAlgorithm(_centroids);
+                    _timerSecondsDrawingLength = sldVel.Value;
+                    _pointRadius = sldGP.Value;
+                    _centroidRadius = sldGC.Value;
+
+                    _alg = new KMeansAlgorithm(nc);
+                    foreach (KMeans.Point p in _points)
+                        _alg.AddPoint(p);
+                    foreach (Centroid c in _centroids)
+                        _alg.AddCentroid(c);
+
+                    if (_differciateCentroids)
+                        GenerateRandomCentroidsColor(nc);
+
+                    _alg.InitializeAlgorithm();
+
+                    _dt = new DispatcherTimer();
+                    _dt.Interval = TimeSpan.FromSeconds(_timerSecondsDrawingLength);
+                    _dt.Tick += Dt_Tick;
+                    _dt.Start();
+                }
+                else if(_mode == 1)
+                {
+                    _alg = new KMeansAlgorithm(nc);
+                    foreach (KMeans.Point p in _points)
+                        _alg.AddPoint(p);
+                    foreach (Centroid c in _centroids)
+                        _alg.AddCentroid(c);
+
+                    _centroids = _alg.CalculateResult();
+                    UpdateDataGrids();
+                    cnvGraphic.Children.Clear();
+                    _pointsColorList = ColorCalculatedPoints();
+                    _calculatedAndSet = true;
+                    _knnAlg = new KNNAlgorithm(_centroids);
+                }
             }
-            
+            catch(KMeansException ex)
+            {
+                MessageBox.Show(ex.Message, "Algorithm error", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
         }
 
         private List<SolidColorBrush> ColorCalculatedPoints()
@@ -326,22 +346,32 @@ namespace KMeansInterface
 			Binding bb = new Binding("SelectedItem.MyPoints");
 			bb.ElementName = "dtgCentroids";
 			dtgPoints.SetBinding(DataGrid.ItemsSourceProperty, bb);
+            dtgCentroids.IsReadOnly = true;
+            dtgPoints.IsReadOnly = true;
         }
 
 		private void btnClearAll_Click(object sender, RoutedEventArgs e)
 		{
             if(_dt?.IsEnabled == true)
                 _dt.Stop();
+
 			_centroids = new List<Centroid>();
 			_points = new List<KMeans.Point>();
             _pointsNumber = 0;
             _centroidsNumber = 0;
             _calculatedAndSet = false;
+            _centroidsFillAndStrokeColors.Clear();
             txtCentroidN.Text = _centroidsNumber.ToString();
 			dtgCentroids.ItemsSource = _centroids;
 			dtgPoints.ItemsSource = _points;
 			cnvGraphic.Children.Clear();
-		}
+
+            if(_mode == 0)
+            {
+                dtgCentroids.IsReadOnly = false;
+                dtgPoints.IsReadOnly = false;
+            }
+        }
 
         private void sldGC_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
         {
@@ -355,7 +385,18 @@ namespace KMeansInterface
 
         private void btnChangeMode_Click(object sender, RoutedEventArgs e)
         {
-            _mode = _mode == 1 ? 0 : 1;
+            if(_mode == 1)
+            {
+                _mode = 0;
+                dtgCentroids.IsReadOnly = false;
+                dtgPoints.IsReadOnly = false;
+            }
+            else if(_mode == 0)
+            {
+                _mode = 1;
+                dtgCentroids.IsReadOnly = true;
+                dtgPoints.IsReadOnly = true;
+            }
             lblMode.Content = _modes[_mode];
 
             if (_dt?.IsEnabled == true)
@@ -369,6 +410,11 @@ namespace KMeansInterface
             dtgCentroids.ItemsSource = _centroids;
             dtgPoints.ItemsSource = _points;
             cnvGraphic.Children.Clear();
+        }
+
+        private void btnHelp_Click(object sender, RoutedEventArgs e)
+        {
+            MessageBox.Show("Modalità Kmeans:\n- Per aggiungere i punti, cliccare destro sul grafico\n- Per aggiungere centroidi, cliccare sinistro sul grafico\n- Per modificare nome e posizione di punti e centroidi, modificare i valori nelle combobox\n- Modificare le opzioni a piacimento\n- Decidere il numero di centroidi (features o raggruppamenti) necessari\n- Cliccare sul bottone Start per eseguire l'algoritmo\n- Cliccare sul bottone Clear All per fermare l'esecuzione dell'algoritmo e cancellare tutti i dati inseriti\n\nModalità KNN:\n- Eseguire tutte le istruzioni della modalità Kmeans per inserire i punti e creare i raggruppamenti\n- Ora si possono inserire nuovi punti cliccando destro sul grafico che verranno evaluati e assegnati al raggruppamento corretto\n- Cliccare sul bottone Clear All per cancellare tutti i dati inseriti");
         }
     }
 }
