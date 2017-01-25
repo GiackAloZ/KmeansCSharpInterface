@@ -7,7 +7,7 @@
         mc:Ignorable="d"
         Title="KMeans" Height="1080" Width="1920" FontSize="21.333" ResizeMode="CanResizeWithGrip" Loaded="winMain_Loaded">
     <Grid>
-        <GroupBox x:Name="grbCentroids" Header="Centroidi" HorizontalAlignment="Left" Height="398" Margin="62,112,0,0" VerticalAlignment="Top" Width="557" FontSize="21.333">
+        <GroupBox x:Name="grbCentroids" Header="Centroidi" HorizontalAlignment="Left" Height="398" Margin="24,205,0,0" VerticalAlignment="Top" Width="557" FontSize="21.333">
             <Canvas x:Name="cnvCentroids" Height="367" Margin="0,0,-2,-3" VerticalAlignment="Top">
                 <DataGrid x:Name="dtgCentroids" HorizontalAlignment="Left" Height="347" VerticalAlignment="Top" Width="527" Canvas.Left="10" Canvas.Top="10"
                           AutoGenerateColumns="False" FontSize="14.667">
@@ -19,7 +19,7 @@
                 </DataGrid>
             </Canvas>
         </GroupBox>
-        <GroupBox x:Name="grbPoints" Header="Punti" HorizontalAlignment="Left" Height="398" Margin="66,571,0,0" VerticalAlignment="Top" Width="557" FontSize="21.333">
+        <GroupBox x:Name="grbPoints" Header="Punti" HorizontalAlignment="Left" Height="398" Margin="24,603,0,0" VerticalAlignment="Top" Width="557" FontSize="21.333">
             <Canvas x:Name="cmvPoints" Height="367" Margin="0,0,-2,-3" VerticalAlignment="Top">
                 <DataGrid x:Name="dtgPoints" HorizontalAlignment="Left" Height="347" VerticalAlignment="Top" Width="527" Canvas.Left="10" Canvas.Top="10"
                           AutoGenerateColumns="False" FontSize="14.667">
@@ -31,36 +31,38 @@
                 </DataGrid>
             </Canvas>
         </GroupBox>
-        <GroupBox x:Name="grbGraphic" Header="Grafico" HorizontalAlignment="Left" Height="503" Margin="658,466,0,0" VerticalAlignment="Top" Width="1224">
-            <Canvas x:Name="cnvGraphic" HorizontalAlignment="Left" Height="468" Margin="4,0,-2,0" VerticalAlignment="Top" Width="1210" MouseUp="cnvGraphic_MouseUp" Cursor="Arrow" Background="Transparent"/>
+        <GroupBox x:Name="grbGraphic" Header="Grafico" HorizontalAlignment="Left" Height="987" Margin="586,14,0,0" VerticalAlignment="Top" Width="1066">
+            <Canvas x:Name="cnvGraphic" HorizontalAlignment="Left" Height="951" Margin="4,0,-2,0" VerticalAlignment="Top" Width="1052" MouseUp="cnvGraphic_MouseUp" Cursor="Arrow" Background="Transparent"/>
         </GroupBox>
-        <TextBox x:Name="txtCentroidN" HorizontalAlignment="Left" Height="52" Margin="300,35,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="344"/>
-        <Label x:Name="lblCentroidN" Content="Numero di centroidi" HorizontalAlignment="Left" Height="52" Margin="62,35,0,0" VerticalAlignment="Top" Width="214"/>
-        <Button x:Name="btnStart" Content="Start" HorizontalAlignment="Left" Height="52" Margin="678,35,0,0" VerticalAlignment="Top" Width="200" IsDefault="True" Click="btnStart_Click"/>
-        <Label x:Name="lblFeature" Content="Nome feature" HorizontalAlignment="Left" Height="52" Margin="1034,35,0,0" VerticalAlignment="Top" Width="148" IsEnabled="False"/>
-        <TextBox x:Name="txtFeature" HorizontalAlignment="Left" Height="52" Margin="1218,35,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="344" IsEnabled="False"/>
-        <Button x:Name="btnAddFeature" Content="+" HorizontalAlignment="Left" Height="52" Margin="1596,35,0,0" VerticalAlignment="Top" Width="70" Click="btnAddFeature_Click" IsDefault="True" IsEnabled="False"/>
-        <Button x:Name="btnRemoveFeature" Content="-" HorizontalAlignment="Left" Height="52" Margin="1692,35,0,0" VerticalAlignment="Top" Width="70" IsDefault="True" Click="btnRemoveFeature_Click" IsEnabled="False"/>
-        <Button x:Name="btnClearAll" Content="Clear All" HorizontalAlignment="Left" Height="53" Margin="1692,112,0,0" VerticalAlignment="Top" Width="190" Click="btnClearAll_Click"/>
-        <Label x:Name="label" Content="Velocità passaggio (sec)" HorizontalAlignment="Left" Height="40" Margin="685,183,0,0" VerticalAlignment="Top" Width="262"/>
-        <Label x:Name="label_Copy" Content="Grandezza centroidi" HorizontalAlignment="Left" Height="40" Margin="685,229,0,0" VerticalAlignment="Top" Width="262"/>
-        <Label x:Name="label_Copy2" Content="Grandezza punti" HorizontalAlignment="Left" Height="40" Margin="685,273,0,0" VerticalAlignment="Top" Width="262"/>
-        <Label x:Name="label_Copy1" Content="Differenzia colori centroidi" HorizontalAlignment="Left" Height="40" Margin="685,319,0,0" VerticalAlignment="Top" Width="262"/>
-        <Slider x:Name="sldVel" HorizontalAlignment="Left" Height="40" Margin="987,185,0,0" VerticalAlignment="Top" Width="244" Maximum="5" Minimum="0.1" Value="1"/>
-        <Slider x:Name="sldGC" HorizontalAlignment="Left" Height="40" Margin="987,229,0,0" VerticalAlignment="Top" Width="244" Minimum="2" Maximum="20" Value="8" ValueChanged="sldGC_ValueChanged"/>
-        <Slider x:Name="sldGP" HorizontalAlignment="Left" Height="40" Margin="987,273,0,0" VerticalAlignment="Top" Width="244" Minimum="2" Maximum="20" Value="10" ValueChanged="sldGP_ValueChanged"/>
-        <Label x:Name="label_Copy3" Content="{Binding ElementName=sldVel, Path=Value}" ContentStringFormat="F2" HorizontalAlignment="Left" Height="40" Margin="1249,183,0,0" VerticalAlignment="Top" Width="112"/>
-        <Label x:Name="label_Copy4" Content="{Binding ElementName=sldGC, Path=Value}" ContentStringFormat="F2" HorizontalAlignment="Left" Height="40" Margin="1249,229,0,0" VerticalAlignment="Top" Width="112"/>
-        <Label x:Name="label_Copy5" Content="{Binding ElementName=sldGP, Path=Value}" ContentStringFormat="F2" HorizontalAlignment="Left" Height="40" Margin="1249,273,0,0" VerticalAlignment="Top" Width="112"/>
-        <CheckBox x:Name="chbDiff" Content="" HorizontalAlignment="Left" Height="14" Margin="990,326,0,0" VerticalAlignment="Top" Width="16">
+        <TextBox x:Name="txtCentroidN" HorizontalAlignment="Left" Height="31" Margin="178,14,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="134"/>
+        <Label x:Name="lblCentroidN" Content="Numero di centroidi" HorizontalAlignment="Left" Height="31" Margin="28,14,0,0" VerticalAlignment="Top" Width="138" FontSize="14"/>
+        <Button x:Name="btnStart" Content="Start" HorizontalAlignment="Left" Height="31" Margin="340,14,0,0" VerticalAlignment="Top" Width="120" IsDefault="True" Click="btnStart_Click" FontSize="14"/>
+        <Label x:Name="lblFeature" Content="Nome feature" HorizontalAlignment="Left" Height="32" Margin="1698,930,0,0" VerticalAlignment="Top" Width="100" IsEnabled="False" FontSize="14"/>
+        <TextBox x:Name="txtFeature" HorizontalAlignment="Left" Height="32" Margin="1803,930,-33,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="142" IsEnabled="False"/>
+        <Button x:Name="btnAddFeature" Content="+" HorizontalAlignment="Left" Height="32" Margin="1969,930,-105,0" VerticalAlignment="Top" Width="48" Click="btnAddFeature_Click" IsDefault="True" IsEnabled="False"/>
+        <Button x:Name="btnRemoveFeature" Content="-" HorizontalAlignment="Left" Height="32" Margin="2043,930,-179,0" VerticalAlignment="Top" Width="48" IsDefault="True" Click="btnRemoveFeature_Click" IsEnabled="False"/>
+        <Button x:Name="btnClearAll" Content="Clear All" HorizontalAlignment="Left" Height="86" Margin="1728,290,0,0" VerticalAlignment="Top" Width="126" Click="btnClearAll_Click" FontSize="14"/>
+        <Label x:Name="label" Content="Speed (fast to low)" HorizontalAlignment="Left" Height="28" Margin="22,67,0,0" VerticalAlignment="Top" Width="211" FontSize="14"/>
+        <Label x:Name="label_Copy" Content="Centroids radius" HorizontalAlignment="Left" Height="26" Margin="22,99,0,0" VerticalAlignment="Top" Width="211" FontSize="14"/>
+        <Label x:Name="label_Copy2" Content="Points radius" HorizontalAlignment="Left" Height="28" Margin="22,129,0,0" VerticalAlignment="Top" Width="211" FontSize="14"/>
+        <Label x:Name="label_Copy1" Content="Differenciate centroids" HorizontalAlignment="Left" Height="26" Margin="22,161,0,0" VerticalAlignment="Top" Width="211" FontSize="14"/>
+        <Slider x:Name="sldVel" HorizontalAlignment="Left" Height="26" Margin="266,69,0,0" VerticalAlignment="Top" Width="196" Maximum="5" Minimum="0.1" Value="1"/>
+        <Slider x:Name="sldGC" HorizontalAlignment="Left" Height="26" Margin="266,99,0,0" VerticalAlignment="Top" Width="196" Minimum="2" Maximum="20" Value="8" ValueChanged="sldGC_ValueChanged"/>
+        <Slider x:Name="sldGP" HorizontalAlignment="Left" Height="28" Margin="266,129,0,0" VerticalAlignment="Top" Width="196" Minimum="2" Maximum="20" Value="10" ValueChanged="sldGP_ValueChanged"/>
+        <Label x:Name="label_Copy3" Content="{Binding ElementName=sldVel, Path=Value}" ContentStringFormat="F2" HorizontalAlignment="Left" Height="28" Margin="477,67,0,0" VerticalAlignment="Top" Width="91" FontSize="14"/>
+        <Label x:Name="label_Copy4" Content="{Binding ElementName=sldGC, Path=Value}" ContentStringFormat="F2" HorizontalAlignment="Left" Height="26" Margin="477,99,0,0" VerticalAlignment="Top" Width="91" FontSize="14"/>
+        <Label x:Name="label_Copy5" Content="{Binding ElementName=sldGP, Path=Value}" ContentStringFormat="F2" HorizontalAlignment="Left" Height="28" Margin="477,129,0,0" VerticalAlignment="Top" Width="91" FontSize="14"/>
+        <CheckBox x:Name="chbDiff" Content="" HorizontalAlignment="Left" Height="16" Margin="268,164,0,0" VerticalAlignment="Top" Width="16">
             <CheckBox.LayoutTransform>
-                <ScaleTransform ScaleX="2" ScaleY="2" />
+                <ScaleTransform ScaleX="1.5" ScaleY="1.5" />
             </CheckBox.LayoutTransform>
         </CheckBox>
-        <Button x:Name="btnChangeMode" Content="Change&#xD;&#xA;Mode" HorizontalAlignment="Left" Height="68" Margin="1696,280,0,0" VerticalAlignment="Top" Width="170" Click="btnChangeMode_Click"/>
-        <Label x:Name="label1" Content="Current mode :" HorizontalAlignment="Left" Height="53" Margin="1497,201,0,0" VerticalAlignment="Top" Width="174"/>
-        <Label x:Name="lblMode" Content="Kmeans mode" HorizontalAlignment="Left" Height="53" Margin="1696,201,0,0" VerticalAlignment="Top" Width="186"/>
+        <Button x:Name="btnChangeMode" Content="Change&#xD;&#xA;Mode" HorizontalAlignment="Left" Height="61" Margin="1773,126,0,0" VerticalAlignment="Top" Width="109" Click="btnChangeMode_Click" FontSize="14"/>
+        <Label x:Name="label1" Content="Current mode :" HorizontalAlignment="Left" Height="31" Margin="1657,79,0,0" VerticalAlignment="Top" Width="111" FontSize="14"/>
+        <Label x:Name="lblMode" Content="Kmeans mode" HorizontalAlignment="Left" Height="31" Margin="1773,79,0,0" VerticalAlignment="Top" Width="109" FontSize="14"/>
         <Button x:Name="btnHelp" Content="?" HorizontalAlignment="Left" Height="36" Margin="1858,10,0,0" VerticalAlignment="Top" Width="44" Click="btnHelp_Click"/>
+        <Button x:Name="btnSaveData" Content="Save&#xD;&#xA;Current&#xD;&#xA;Data" HorizontalAlignment="Left" Height="86" Margin="1728,433,0,0" VerticalAlignment="Top" Width="126" FontSize="14" Click="btnSaveData_Click"/>
+        <Button x:Name="btnLoadData" Content="Load&#xD;&#xA;Data" HorizontalAlignment="Left" Height="86" Margin="1728,573,0,0" VerticalAlignment="Top" Width="126" FontSize="14" Click="btnLoadData_Click"/>
 
     </Grid>
 </Window>

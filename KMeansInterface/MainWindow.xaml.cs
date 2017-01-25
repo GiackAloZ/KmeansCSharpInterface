@@ -20,6 +20,13 @@ using System.Windows.Threading;
 using System.Collections.ObjectModel;
 using KMeans.Exceptions;
 
+using System.ComponentModel;
+using System.Runtime.Serialization;
+using System.Runtime.CompilerServices;
+using System.Xml;
+using Microsoft.Win32;
+using System.IO;
+
 namespace KMeansInterface
 {
     /// <summary>
@@ -127,12 +134,10 @@ namespace KMeansInterface
                             cnvGraphic.Children.Add(ell);
                             Canvas.SetTop(ell, y - 5);
                             Canvas.SetLeft(ell, x - 5);
-                            c.MyPoints.Add(p);
+							c.MyPoints.Add(p);
                         }
                         ccc++;
                     }
-                    
-                    
                 }
                 else
                 {
@@ -230,7 +235,7 @@ namespace KMeansInterface
                     cnvGraphic.Children.Clear();
                     _pointsColorList = ColorCalculatedPoints();
                     _calculatedAndSet = true;
-                    _knnAlg = new KNNAlgorithm(_centroids);
+                    _knnAlg = new KNNAlgorithm(4, _centroids);
                 }
             }
             catch(KMeansException ex)
@@ -274,7 +279,49 @@ namespace KMeansInterface
             }  
         }
 
-        private void Dt_Tick(object sender, EventArgs e)
+		private void DrawPoint(double x, double y)
+		{
+			Ellipse ell = new Ellipse { Width = _pointRadius, Height = _pointRadius, Fill = _pointFillColor, StrokeThickness = _pointThickness, Stroke = _pointStrokeColor };
+			cnvGraphic.Children.Add(ell);
+			Canvas.SetTop(ell, y - 5);
+			Canvas.SetLeft(ell, x - 5);
+		}
+
+		private void DrawCentroid(double x, double y)
+		{
+			Ellipse ell = new Ellipse { Width = _centroidRadius, Height = _centroidRadius, Fill = _centroidFillColor, StrokeThickness = _centroidThickness, Stroke = _centroidStrokeColor };
+			cnvGraphic.Children.Add(ell);
+			Canvas.SetTop(ell, y - 5);
+			Canvas.SetLeft(ell, x - 5);
+		}
+
+		private void DrawCentroid(double x, double y, Ellipse ell)
+		{
+			cnvGraphic.Children.Add(ell);
+			Canvas.SetTop(ell, y - 5);
+			Canvas.SetLeft(ell, x - 5);
+		}
+
+		private void DrawLine(double x1, double y1, double x2, double y2)
+		{
+			Line l = new Line { Stroke = _lineStrokeColor, StrokeThickness = _lineThickness };
+			l.X1 = x1;
+			l.Y1 = y1;
+			l.X2 = x2;
+			l.Y2 = y2;
+			cnvGraphic.Children.Add(l);
+		}
+
+		private void DrawLine(double x1, double y1, double x2, double y2, Line l)
+		{
+			l.X1 = x1;
+			l.Y1 = y1;
+			l.X2 = x2;
+			l.Y2 = y2;
+			cnvGraphic.Children.Add(l);
+		}
+
+		private void Dt_Tick(object sender, EventArgs e)
         {
             List<Centroid> cc = _alg.NextStep(out _conv);
 
@@ -291,10 +338,13 @@ namespace KMeansInterface
                 cnvGraphic.Children.Clear();
                 foreach (KMeans.Point p in _points)
                 {
+					DrawPoint(p.Coordinates[0], p.Coordinates[1]);
+					/*
                     ell = new Ellipse { Width = _pointRadius, Height = _pointRadius, Fill = _pointFillColor, StrokeThickness = _pointThickness, Stroke = _pointStrokeColor };
                     cnvGraphic.Children.Add(ell);
                     Canvas.SetTop(ell, p.Coordinates[1] - _pointRadius / 2);
                     Canvas.SetLeft(ell, p.Coordinates[0] - _pointRadius / 2);
+					*/
                 }
                 int counter = 0;
                 foreach (Centroid c in _centroids)
@@ -307,9 +357,15 @@ namespace KMeansInterface
                     {
                         ell = new Ellipse { Width = _centroidRadius, Height = _centroidRadius, Fill = _centroidFillColor, StrokeThickness = _centroidThickness, Stroke = _centroidStrokeColor };
                     }
+
+					DrawCentroid(c.Coordinates[0], c.Coordinates[1], ell);
+					/*
                     cnvGraphic.Children.Add(ell);
 					Canvas.SetTop(ell, c.Coordinates[1] - _centroidRadius / 2);
 					Canvas.SetLeft(ell, c.Coordinates[0] - _centroidRadius / 2);
+					*/
+
+
                     Line l;
 					foreach(KMeans.Point p in c.MyPoints)
 					{
@@ -321,11 +377,14 @@ namespace KMeansInterface
                         {
 						    l = new Line { Stroke = _lineStrokeColor, StrokeThickness = _lineThickness };
                         }
+						DrawLine(c.Coordinates[0], c.Coordinates[1], p.Coordinates[0], p.Coordinates[1], l);
+						/*
 						l.X1 = c.Coordinates[0];
 						l.Y1 = c.Coordinates[1];
 						l.X2 = p.Coordinates[0];
 						l.Y2 = p.Coordinates[1];
 						cnvGraphic.Children.Add(l);
+						*/
 					}
                     counter++;
 				}
@@ -349,28 +408,33 @@ namespace KMeansInterface
             dtgCentroids.IsReadOnly = true;
             dtgPoints.IsReadOnly = true;
         }
+		
+		private void ClearAll()
+		{
+			_centroids = new List<Centroid>();
+			_points = new List<KMeans.Point>();
+			_pointsNumber = 0;
+			_centroidsNumber = 0;
+			_calculatedAndSet = false;
+			_centroidsFillAndStrokeColors.Clear();
+			txtCentroidN.Text = _centroidsNumber.ToString();
+			dtgCentroids.ItemsSource = _centroids;
+			dtgPoints.ItemsSource = _points;
+			cnvGraphic.Children.Clear();
+
+			if (_mode == 0)
+			{
+				dtgCentroids.IsReadOnly = false;
+				dtgPoints.IsReadOnly = false;
+			}
+		}
 
 		private void btnClearAll_Click(object sender, RoutedEventArgs e)
 		{
             if(_dt?.IsEnabled == true)
                 _dt.Stop();
 
-			_centroids = new List<Centroid>();
-			_points = new List<KMeans.Point>();
-            _pointsNumber = 0;
-            _centroidsNumber = 0;
-            _calculatedAndSet = false;
-            _centroidsFillAndStrokeColors.Clear();
-            txtCentroidN.Text = _centroidsNumber.ToString();
-			dtgCentroids.ItemsSource = _centroids;
-			dtgPoints.ItemsSource = _points;
-			cnvGraphic.Children.Clear();
-
-            if(_mode == 0)
-            {
-                dtgCentroids.IsReadOnly = false;
-                dtgPoints.IsReadOnly = false;
-            }
+			ClearAll();
         }
 
         private void sldGC_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
@@ -416,5 +480,54 @@ namespace KMeansInterface
         {
             MessageBox.Show("Modalità Kmeans:\n- Per aggiungere i punti, cliccare destro sul grafico\n- Per aggiungere centroidi, cliccare sinistro sul grafico\n- Per modificare nome e posizione di punti e centroidi, modificare i valori nelle combobox\n- Modificare le opzioni a piacimento\n- Decidere il numero di centroidi (features o raggruppamenti) necessari\n- Cliccare sul bottone Start per eseguire l'algoritmo\n- Cliccare sul bottone Clear All per fermare l'esecuzione dell'algoritmo e cancellare tutti i dati inseriti\n\nModalità KNN:\n- Eseguire tutte le istruzioni della modalità Kmeans per inserire i punti e creare i raggruppamenti\n- Ora si possono inserire nuovi punti cliccando destro sul grafico che verranno evaluati e assegnati al raggruppamento corretto\n- Cliccare sul bottone Clear All per cancellare tutti i dati inseriti");
         }
-    }
+
+		private void btnSaveData_Click(object sender, RoutedEventArgs e)
+		{
+			if(_dt?.IsEnabled == false)
+			{
+				SaveFileDialog dial = new SaveFileDialog();
+				dial.Filter = "bho|*.xml|Tutti i file|*.*";
+				if ((bool)dial.ShowDialog())
+				{
+					XmlWriterSettings set = new XmlWriterSettings();
+					set.Indent = true;
+					using (FileStream stream = new FileStream(dial.FileName, FileMode.Create, FileAccess.Write, FileShare.None))
+					using (XmlWriter xmlw = XmlWriter.Create(stream, set))
+					{
+						DataContractSerializer dc = new DataContractSerializer(typeof(List<Centroid>));
+						dc.WriteObject(xmlw, _centroids);
+					}
+				}
+			}
+		}
+
+		private void btnLoadData_Click(object sender, RoutedEventArgs e)
+		{
+			if (_dt?.IsEnabled == false)
+			{
+				ClearAll();
+				OpenFileDialog dial = new OpenFileDialog();
+				dial.Filter = "bho|*.xml|Tutti i file|*.*";
+				if ((bool)dial.ShowDialog())
+				{
+					using (FileStream stream = new FileStream(dial.FileName, FileMode.Open, FileAccess.Read, FileShare.None))
+					using (XmlReader xmlr = XmlReader.Create(stream))
+					{
+						DataContractSerializer dc = new DataContractSerializer(typeof(List<Centroid>));
+						_centroids = (List<Centroid>)dc.ReadObject(xmlr);
+					}
+				}
+				UpdateDataGrids();
+				foreach(Centroid c in _centroids)
+				{
+					DrawCentroid(c.Coordinates[0], c.Coordinates[1]);
+					foreach(KMeans.Point p in c.MyPoints)
+					{
+						DrawPoint(p.Coordinates[0], p.Coordinates[1]);
+						DrawLine(c.Coordinates[0], c.Coordinates[1], p.Coordinates[0], p.Coordinates[1]);
+					}
+				}
+			}
+		}
+	}
 }
