@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:KMeansInterface"
         mc:Ignorable="d"
-        Title="KMeans" Height="1080" Width="1920" FontSize="21.333" ResizeMode="CanResizeWithGrip" Loaded="winMain_Loaded">
+        Title="KMeans" Height="1080" Width="1920" FontSize="21.333" ResizeMode="NoResize" Loaded="winMain_Loaded" SizeToContent="WidthAndHeight">
     <Grid>
         <GroupBox x:Name="grbCentroids" Header="Centroidi" HorizontalAlignment="Left" Height="398" Margin="24,205,0,0" VerticalAlignment="Top" Width="557" FontSize="21.333">
             <Canvas x:Name="cnvCentroids" Height="367" Margin="0,0,-2,-3" VerticalAlignment="Top">
@@ -35,12 +35,12 @@
             <Canvas x:Name="cnvGraphic" HorizontalAlignment="Left" Height="951" Margin="4,0,-2,0" VerticalAlignment="Top" Width="1052" MouseUp="cnvGraphic_MouseUp" Cursor="Arrow" Background="Transparent"/>
         </GroupBox>
         <TextBox x:Name="txtCentroidN" HorizontalAlignment="Left" Height="31" Margin="178,14,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="134"/>
-        <Label x:Name="lblCentroidN" Content="Numero di centroidi" HorizontalAlignment="Left" Height="31" Margin="28,14,0,0" VerticalAlignment="Top" Width="138" FontSize="14"/>
+        <Label x:Name="lblCentroidN" Content="Centroids number" HorizontalAlignment="Left" Height="31" Margin="28,14,0,0" VerticalAlignment="Top" Width="138" FontSize="14"/>
         <Button x:Name="btnStart" Content="Start" HorizontalAlignment="Left" Height="31" Margin="340,14,0,0" VerticalAlignment="Top" Width="120" IsDefault="True" Click="btnStart_Click" FontSize="14"/>
-        <Label x:Name="lblFeature" Content="Nome feature" HorizontalAlignment="Left" Height="32" Margin="1698,930,0,0" VerticalAlignment="Top" Width="100" IsEnabled="False" FontSize="14"/>
-        <TextBox x:Name="txtFeature" HorizontalAlignment="Left" Height="32" Margin="1803,930,-33,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="142" IsEnabled="False"/>
-        <Button x:Name="btnAddFeature" Content="+" HorizontalAlignment="Left" Height="32" Margin="1969,930,-105,0" VerticalAlignment="Top" Width="48" Click="btnAddFeature_Click" IsDefault="True" IsEnabled="False"/>
-        <Button x:Name="btnRemoveFeature" Content="-" HorizontalAlignment="Left" Height="32" Margin="2043,930,-179,0" VerticalAlignment="Top" Width="48" IsDefault="True" Click="btnRemoveFeature_Click" IsEnabled="False"/>
+        <Label x:Name="lblFeature" Content="Nome feature" HorizontalAlignment="Left" Height="32" Margin="1960,766,-148,0" VerticalAlignment="Top" Width="100" IsEnabled="False" FontSize="14"/>
+        <TextBox x:Name="txtFeature" HorizontalAlignment="Left" Height="32" Margin="2066,766,-296,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="142" IsEnabled="False"/>
+        <Button x:Name="btnAddFeature" Content="+" HorizontalAlignment="Left" Height="32" Margin="2232,766,-368,0" VerticalAlignment="Top" Width="48" Click="btnAddFeature_Click" IsDefault="True" IsEnabled="False"/>
+        <Button x:Name="btnRemoveFeature" Content="-" HorizontalAlignment="Left" Height="32" Margin="2306,766,-442,0" VerticalAlignment="Top" Width="48" IsDefault="True" Click="btnRemoveFeature_Click" IsEnabled="False"/>
         <Button x:Name="btnClearAll" Content="Clear All" HorizontalAlignment="Left" Height="86" Margin="1728,290,0,0" VerticalAlignment="Top" Width="126" Click="btnClearAll_Click" FontSize="14"/>
         <Label x:Name="label" Content="Speed (fast to low)" HorizontalAlignment="Left" Height="28" Margin="22,67,0,0" VerticalAlignment="Top" Width="211" FontSize="14"/>
         <Label x:Name="label_Copy" Content="Centroids radius" HorizontalAlignment="Left" Height="26" Margin="22,99,0,0" VerticalAlignment="Top" Width="211" FontSize="14"/>
@@ -63,6 +63,13 @@
         <Button x:Name="btnHelp" Content="?" HorizontalAlignment="Left" Height="36" Margin="1858,10,0,0" VerticalAlignment="Top" Width="44" Click="btnHelp_Click"/>
         <Button x:Name="btnSaveData" Content="Save&#xD;&#xA;Current&#xD;&#xA;Data" HorizontalAlignment="Left" Height="86" Margin="1728,433,0,0" VerticalAlignment="Top" Width="126" FontSize="14" Click="btnSaveData_Click"/>
         <Button x:Name="btnLoadData" Content="Load&#xD;&#xA;Data" HorizontalAlignment="Left" Height="86" Margin="1728,573,0,0" VerticalAlignment="Top" Width="126" FontSize="14" Click="btnLoadData_Click"/>
+        <Label x:Name="lblK" Content="K" HorizontalAlignment="Left" Height="32" Margin="1728,209,0,0" VerticalAlignment="Top" Width="26" FontSize="14" IsEnabled="False"/>
+        <TextBox x:Name="txtK" HorizontalAlignment="Left" Height="32" Margin="1778,209,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="104" IsEnabled="False"/>
+        <Button x:Name="btnGenerateRandomPoints" Content="Generate&#xD;&#xA;Random&#xD;&#xA;Points" HorizontalAlignment="Left" Height="86" Margin="1728,832,0,0" VerticalAlignment="Top" Width="126" FontSize="14" Click="btnGenerateRandomPoints_Click"/>
+        <TextBox x:Name="txtRandomPointsNumber" HorizontalAlignment="Left" Height="32" Margin="1778,748,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="126"/>
+        <Label x:Name="lblNnn" Content="N" HorizontalAlignment="Left" Height="31" Margin="1652,748,0,0" VerticalAlignment="Top" Width="121" FontSize="14"/>
+        <TextBox x:Name="txtSpreadFactor" HorizontalAlignment="Left" Height="32" Margin="1778,783,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="126"/>
+        <Label x:Name="lblNnn_Copy" Content="Fattore di spread" HorizontalAlignment="Left" Height="31" Margin="1652,784,0,0" VerticalAlignment="Top" Width="121" FontSize="14"/>
 
     </Grid>
 </Window>

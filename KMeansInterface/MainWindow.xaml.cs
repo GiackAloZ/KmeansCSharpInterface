@@ -190,9 +190,9 @@ namespace KMeansInterface
         {
             int nc;
             bool ok = int.TryParse(txtCentroidN.Text, out nc); //va messo a posto
-            if (!ok)
+            if (!ok || nc <= 0)
             {
-                MessageBox.Show("Inserire un numero intero!", "Errore", MessageBoxButton.OK, MessageBoxImage.Error);
+                MessageBox.Show("Inserire un numero intero maggiore di 0!", "Errore", MessageBoxButton.OK, MessageBoxImage.Error);
                 return;
             }
             try
@@ -224,6 +224,14 @@ namespace KMeansInterface
                 }
                 else if(_mode == 1)
                 {
+                    int k;
+                    bool ok2 = int.TryParse(txtK.Text, out k); //va messo a posto
+                    if (!ok2 || k <= 0)
+                    {
+                        MessageBox.Show("Inserire un numero intero maggiore di 0!", "Errore", MessageBoxButton.OK, MessageBoxImage.Error);
+                        return;
+                    }
+
                     _alg = new KMeansAlgorithm(nc);
                     foreach (KMeans.Point p in _points)
                         _alg.AddPoint(p);
@@ -235,7 +243,8 @@ namespace KMeansInterface
                     cnvGraphic.Children.Clear();
                     _pointsColorList = ColorCalculatedPoints();
                     _calculatedAndSet = true;
-                    _knnAlg = new KNNAlgorithm(4, _centroids);
+
+                    _knnAlg = new KNNAlgorithm(k, _centroids);
                 }
             }
             catch(KMeansException ex)
@@ -454,12 +463,16 @@ namespace KMeansInterface
                 _mode = 0;
                 dtgCentroids.IsReadOnly = false;
                 dtgPoints.IsReadOnly = false;
+                lblK.IsEnabled = false;
+                txtK.IsEnabled = false;
             }
             else if(_mode == 0)
             {
                 _mode = 1;
                 dtgCentroids.IsReadOnly = true;
                 dtgPoints.IsReadOnly = true;
+                lblK.IsEnabled = true;
+                txtK.IsEnabled = true;
             }
             lblMode.Content = _modes[_mode];
 
@@ -486,7 +499,7 @@ namespace KMeansInterface
 			if(_dt?.IsEnabled == false)
 			{
 				SaveFileDialog dial = new SaveFileDialog();
-				dial.Filter = "bho|*.xml|Tutti i file|*.*";
+				dial.Filter = "Xml file|*.xml|Tutti i file|*.*";
 				if ((bool)dial.ShowDialog())
 				{
 					XmlWriterSettings set = new XmlWriterSettings();
@@ -507,7 +520,7 @@ namespace KMeansInterface
 			{
 				ClearAll();
 				OpenFileDialog dial = new OpenFileDialog();
-				dial.Filter = "bho|*.xml|Tutti i file|*.*";
+				dial.Filter = "Xml file|*.xml|Tutti i file|*.*";
 				if ((bool)dial.ShowDialog())
 				{
 					using (FileStream stream = new FileStream(dial.FileName, FileMode.Open, FileAccess.Read, FileShare.None))
@@ -529,5 +542,59 @@ namespace KMeansInterface
 				}
 			}
 		}
-	}
+
+        private void btnGenerateRandomPoints_Click(object sender, RoutedEventArgs e)
+        {
+            //ClearAll();
+            int pointsN;
+            bool ok = int.TryParse(txtRandomPointsNumber.Text, out pointsN); //va messo a posto
+            if (!ok)
+            {
+                MessageBox.Show("Inserire un numero intero!", "Errore", MessageBoxButton.OK, MessageBoxImage.Error);
+                return;
+            }
+
+            int spreadFactor = 1;
+            bool ok2 = int.TryParse(txtSpreadFactor.Text, out spreadFactor); //va messo a posto
+            if (!ok2 || spreadFactor < 1 || spreadFactor > 100)
+            {
+                MessageBox.Show("Inserire un numero intero tra 1 e 100!", "Errore", MessageBoxButton.OK, MessageBoxImage.Error);
+                return;
+            }
+
+            Random r = new Random();
+            for (int i = 0; i < pointsN; i++)
+            {
+                ObservableCollection<double> coord = new ObservableCollection<double>();
+                ObservableCollection<double> uiList;
+                double radiusSquared = 0;
+                while (true)
+                {
+                    uiList = new ObservableCollection<double>();
+                    for (int j = 0; j < 2; j++)
+                    {
+                        double tmp = r.NextDouble() * 2 - 1; //Numero random tra [-1; 1]
+                        uiList.Add(tmp);
+                        radiusSquared += tmp * tmp;
+                    }
+                    if (radiusSquared < 1)
+                        break;
+                    radiusSquared = 0;
+                }
+                for (int j = 0; j < 2; j++)
+                {
+                    double tmp = spreadFactor * uiList[j] * Math.Sqrt((-2) * Math.Log(radiusSquared) / radiusSquared);
+                    double pos;
+                    if (j == 0)
+                        pos = cnvGraphic.Width / 2 + tmp;
+                    else
+                        pos = cnvGraphic.Height / 2 + tmp;
+                    coord.Add(pos);
+                }
+                _points.Add(new KMeans.Point("Point " + (++_pointsNumber), coord));
+                DrawPoint(coord[0], coord[1]);
+            }
+            dtgPoints.Items.Refresh();
+        }
+    }
 }
