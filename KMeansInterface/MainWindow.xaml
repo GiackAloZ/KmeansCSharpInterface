@@ -12,6 +12,13 @@
                 <DataGrid x:Name="dtgCentroids" HorizontalAlignment="Left" Height="347" VerticalAlignment="Top" Width="527" Canvas.Left="10" Canvas.Top="10"
                           AutoGenerateColumns="False" FontSize="14.667">
                     <DataGrid.Columns>
+                        <DataGridTemplateColumn>
+                            <DataGridTemplateColumn.CellTemplate>
+                                <DataTemplate>
+                                    <Button x:Name="btnDeleteCentroid" Content="X" Click="btnDeleteCentroid_Click"/>
+                                </DataTemplate>
+                            </DataGridTemplateColumn.CellTemplate>
+                        </DataGridTemplateColumn>
                         <DataGridTextColumn Header="Nome Centroide" Binding="{Binding Name}" Width="33*"/>
                         <DataGridTextColumn Header="X" Binding="{Binding Coordinates[0]}" Width="33*"/>
                         <DataGridTextColumn Header="Y" Binding="{Binding Coordinates[1]}" Width="33*"/>
@@ -24,6 +31,13 @@
                 <DataGrid x:Name="dtgPoints" HorizontalAlignment="Left" Height="347" VerticalAlignment="Top" Width="527" Canvas.Left="10" Canvas.Top="10"
                           AutoGenerateColumns="False" FontSize="14.667">
                     <DataGrid.Columns>
+                        <DataGridTemplateColumn>
+                            <DataGridTemplateColumn.CellTemplate>
+                                <DataTemplate>
+                                    <Button x:Name="btnDeletePoint" Content="X" Click="btnDeletePoint_Click"/>
+                                </DataTemplate>
+                            </DataGridTemplateColumn.CellTemplate>
+                        </DataGridTemplateColumn>
                         <DataGridTextColumn Header="Nome Punto" Binding="{Binding Name}" Width="33*"/>
                         <DataGridTextColumn Header="X" Binding="{Binding Coordinates[0]}" Width="33*"/>
                         <DataGridTextColumn Header="Y" Binding="{Binding Coordinates[1]}" Width="33*"/>
